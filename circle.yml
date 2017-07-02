@@ -5,7 +5,7 @@ machine:
 checkout:
   post:
     - git clone git://qmp.cat/qmpfw.git qmp-$VERSION
-    - cd qmp-3-2.1
+    - cd qmp-$VERSION
     - git fetch --tags
     - git checkout tags/v$VERSION
 
