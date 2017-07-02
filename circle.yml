@@ -1,5 +1,5 @@
 checkout:
-  - post:
+  post:
     - git clone git://qmp.cat/qmpfw.git qmp-$VERSION
     - cd qmp-3-2.1
     - git fetch --tags
