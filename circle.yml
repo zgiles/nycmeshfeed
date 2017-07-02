@@ -1,13 +1,12 @@
 machine:
   environment:
     VERSION: "3.2.1"
+    QMP_GIT_BRANCH: "v3.2.1"
 
 checkout:
   post:
     - git clone git://qmp.cat/qmpfw.git qmp-$VERSION
-    - cd qmp-$VERSION
-    - git fetch --tags
-    - git checkout tags/v$VERSION
+    - cd qmp-$VERSION; git fetch --tags; git checkout tags/v$VERSION
 
 dependencies:
   pre:
@@ -16,10 +15,8 @@ dependencies:
 
 test:
   override:
-    - QMP_GIT_BRANCH=v$VERSION make checkout
-    - cd build/qmp 
-    - git checkout -b v$VERSION
-    - cd ../..
-    - echo "src-git nycmeshfeed https://github.com/nycmeshnet/nycmeshfeed.git" >> ./build/openwrt/feeds.conf
-    - ./build/openwrt/scripts/feeds update -a
-    - ./build/openwrt/scripts/feeds install -a
+    - cd qmp-$VERSION; make checkout
+    - cd qmp-$VERSION/build/qmp; git checkout -b v$VERSION
+    - echo "src-git nycmeshfeed https://github.com/nycmeshnet/nycmeshfeed.git" >> qmp-$VERSION/build/openwrt/feeds.conf
+    - cd qmp-$VERSION; ./build/openwrt/scripts/feeds update -a
+    - cd qmp-$VERSION; ./build/openwrt/scripts/feeds install -a
